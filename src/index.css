@@ -20,6 +20,7 @@ body {
   border-radius: 5px;
 }
 
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -109,4 +110,8 @@ body {
 footer {
   margin-top: 30px;
   text-align: center;
+}
+
+select {
+  font-size: large;
 }

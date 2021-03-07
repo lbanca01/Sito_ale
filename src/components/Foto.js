@@ -2,12 +2,12 @@ import { FaTimes, FaPhotoVideo } from 'react-icons/fa'
 
 const Task = ({ task, onDelete, onAdd }) => {
   return (
-    <div className={`task ${task.foto ? 'reminder' : '' }`}>
+    <div className={`task ${task.desc ? 'reminder' : '' }`}>
       <h3>
         {task.text} 
         <div>
-          <a href={task.foto ? task.foto : null }>
-            <FaPhotoVideo onClick={() => !task.foto && 
+          <a href={task.desc ? task.desc : null }>
+            <FaPhotoVideo onClick={() => !task.desc && 
               onAdd(task.id, prompt("Aggiungi il link con le foto"))}/>
           </a> 
           <FaTimes onClick={() => onDelete(task.id)} 

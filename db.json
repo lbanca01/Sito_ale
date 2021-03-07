@@ -3,35 +3,38 @@
     {
       "id": 1,
       "text": "Praga",
-      "foto": "https://photos.app.goo.gl/kwU632qjNdAGFDve9"
-    }
-  ],
-  "ristoranti": [
-    {
-      "id": 1,
-      "title": "Cibo",
-      "desc": "Ciboso",
-      "seen": true
+      "desc": "https://photos.app.goo.gl/kwU632qjNdAGFDve9"
     },
     {
-      "text": "a",
-      "foto": "a",
-      "reminder": false,
+      "text": "Nostre foto in generale",
+      "desc": "",
       "id": 2
+    },
+    {
+      "text": "Parco Monte Stella",
+      "desc": "https://photos.app.goo.gl/8q5cUZnAyjWLLhN79",
+      "id": 3
     }
   ],
+  "ristoranti": [],
   "film": [
     {
       "id": 1,
-      "title": "Avengers",
-      "genere": "Azione",
+      "text": "Avengers:Endgame",
+      "desc": "caio",
       "seen": true
     },
     {
-      "id": 2,
-      "title": "Grease",
-      "genere": "Musical/Romantico",
-      "seen": false
+      "text": "Io e Marley",
+      "desc": "",
+      "seen": true,
+      "id": 2
+    },
+    {
+      "text": "Il castello errante di haul",
+      "desc": "Dovremmo finirlo prima o poi",
+      "seen": true,
+      "id": 3
     }
   ]
 }

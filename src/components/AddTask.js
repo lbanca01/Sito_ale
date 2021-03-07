@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-const AddTask = ({ onAdd }) => {
+const AddTask = ({ onAdd, table }) => {
   const [text, setText] = useState('')
-  const [foto, setFoto] = useState('')
-  const [reminder, setReminder] = useState(false)
+  const [desc, setDesc] = useState('')
+  const [seen, setSeen] = useState(false)
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -13,30 +13,33 @@ const AddTask = ({ onAdd }) => {
       return
     }
 
-    onAdd({text, foto, reminder}, "foto")
+    if (table !== "viaggi")
+      onAdd({text, desc, seen})
+    else
+      onAdd({text, desc})
 
     setText('')
-    setFoto('')
-    setReminder(false)
+    setDesc('')
+    setSeen(false)
 
   }
 
   return (
     <form className='add-form' onSubmit={onSubmit}>
       <div className='form-control'>
-        <label>Posto</label>
+        <label>Titolo</label>
         <input type="text" placeholder="Add task" 
         value={text} onChange={(e) => setText(e.target.value)}/>
       </div>
       <div className='form-control'>
-        <label>Date</label>
+        <label>Descrizione</label>
         <input type="text" placeholder="Add foto" 
-        value={foto} onChange={(e) => setFoto(e.target.value)}/>
+        value={desc} onChange={(e) => setDesc(e.target.value)}/>
       </div>
       <div className='form-control form-control-check'>
-        <label>Visitato</label>
-        <input type="checkbox" checked={reminder}
-        value={reminder} onChange={(e) => setReminder(e.currentTarget.checked)}/>
+        <label>Visto</label>
+        <input type="checkbox" checked={seen}
+        value={seen} onChange={(e) => setSeen(e.currentTarget.checked)}/>
       </div>
       <input type="submit" className="btn btn-block"/>
     </form>

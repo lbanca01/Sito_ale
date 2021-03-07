@@ -1,14 +1,16 @@
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Ristoranti from './components/Ristoranti'
+import Films from './components/Films'
 import About from './components/About'
 import Fotos from './components/Fotos'
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
+var workingTable = "viaggi"
+const url = "http://localhost"
+
 function App() {
-  const url = "http://localhost"
-  var workingTable
 
   const [showAdd, setShowAdd] = useState(false)
   const [tasks, setTasks] = useState([])
@@ -69,14 +71,12 @@ function App() {
       : alert('Error Deleting This Task')
   }
 
-  /* Toggle Reminder
-  const toggleReminder = async (id, table) => {
+  //Toggle Reminder
+  const toggleReminder = async (id) => {
     const taskToToggle = await fetchTask(id)
-    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
-    const urls = `${url}:5000/${table}/${id}`
-    console.log(table)
+    const updTask = { ...taskToToggle, seen: !taskToToggle.seen }
 
-    const res = await fetch(`${url}:5000/${table}/${id}`, {
+    const res = await fetch(`${url}:5000/${workingTable}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
@@ -88,30 +88,30 @@ function App() {
 
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
+        task.id === id ? { ...task, seen: data.seen } : task
       )
     )
   }
-  */
-  const addFoto = async (id, foto) => {
-    if (!foto)
+  
+  const addParam = async (id, desc) => {
+    if (!desc)
       return
     const fotoToAdd = await fetchTask(id)
-    const updFoto = { ...fotoToAdd, foto: foto}
+    const upd = { ...fotoToAdd, desc: desc}
 
-    const res = await fetch(`${url}:5000/foto/${id}`, {
+    const res = await fetch(`${url}:5000/${workingTable}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(updFoto),
+      body: JSON.stringify(upd),
     })
 
     const data = await res.json()
 
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, foto: data.foto } : task
+        task.id === id ? { ...task, desc: data.desc } : task
       )
     )
   }
@@ -119,8 +119,6 @@ function App() {
   const setTable = (table) => {
     workingTable = table
   }
-
-  setTable("viaggi")
   
   return (
     <Router>
@@ -136,15 +134,24 @@ function App() {
                   tasks={tasks}
                   onDelete={deleteTask}
                   onAddTask={addTask}
-                  onAdd={addFoto}
+                  onAdd={addParam}
                   showAdd={showAdd}
                 />)} />
         <Route path='/ristoranti' render={(props) => (<Ristoranti
                   tasks={tasks}
                   onDelete={deleteTask}
                   onAddTask={addTask}
-                  onAdd={addFoto}
+                  onAdd={addParam}
                   showAdd={showAdd}
+                  onSeen={toggleReminder}
+                />)} />
+        <Route path='/film' render={(props) => (<Films
+                  tasks={tasks}
+                  onDelete={deleteTask}
+                  onAddTask={addTask}
+                  onAdd={addParam}
+                  showAdd={showAdd}
+                  onSeen={toggleReminder}
                 />)} />
         <Route path='/about' component={About} />
         <Footer />

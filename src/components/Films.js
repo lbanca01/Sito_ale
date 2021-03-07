@@ -1,4 +1,4 @@
-import Ristorante from "./Ristorante";
+import Film from "./Film";
 import AddTask from "./AddTask";
 
 const Tasks = ({ tasks, onDelete, onAdd, showAdd, onAddTask, onSeen }) => {
@@ -7,12 +7,12 @@ const Tasks = ({ tasks, onDelete, onAdd, showAdd, onAddTask, onSeen }) => {
       {showAdd && <AddTask onAdd={onAddTask} />}
       {tasks.length > 0 ? (
         tasks.map((task) => (
-          <Ristorante key={task.id} task={task} 
+          <Film key={task.id} task={task} 
           onDelete={onDelete} onAdd={onAdd}
           onSeen={onSeen}/>
         ))
         ) : (
-          'Dobbiamo andare a mangaire da qualche parte'
+          'Dovremmo vederci qualcosa'
         )}      
     </>
   )

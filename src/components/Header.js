@@ -9,11 +9,9 @@ const Header = ({ setTitle, showAdd, onAdd, refreshTasks }) => {
     setTitle(value)
     history.push(`/${value}`);
     refreshTasks()
-
   }
 
   return (
-    
     <header className="header">
       <form>
         <select onChange={(e) => handleChange(e.target.value)}>
