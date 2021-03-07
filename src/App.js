@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 var workingTable = "viaggi"
 const url = "http://localhost"
-
+const port = process.env.PORT || 5000
 function App() {
 
   const [showAdd, setShowAdd] = useState(false)
@@ -30,7 +30,7 @@ function App() {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch(`${url}:5000/${workingTable}`)
+    const res = await fetch(`${url}:${port}/${workingTable}`)
     const data = await res.json()
 
     return data
@@ -38,7 +38,7 @@ function App() {
 
   // Fetch Task
   const fetchTask = async (id) => {
-    const res = await fetch(`${url}:5000/${workingTable}/${id}`)
+    const res = await fetch(`${url}:${port}/${workingTable}/${id}`)
     const data = await res.json()
 
     return data
@@ -46,7 +46,7 @@ function App() {
 
   // Add Task
   const addTask = async (task) => {
-    const res = await fetch(`${url}:5000/${workingTable}`, {
+    const res = await fetch(`${url}:${port}/${workingTable}`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -62,7 +62,7 @@ function App() {
 
   // Delete Task
   const deleteTask = async (id) => {
-    const res = await fetch(`${url}:5000/${workingTable}/${id}`, {
+    const res = await fetch(`${url}:${port}/${workingTable}/${id}`, {
       method: 'DELETE',
     })
     //We should control the response status to decide if we will change the state or not.
@@ -99,7 +99,7 @@ function App() {
     const fotoToAdd = await fetchTask(id)
     const upd = { ...fotoToAdd, desc: desc}
 
-    const res = await fetch(`${url}:5000/${workingTable}/${id}`, {
+    const res = await fetch(`${url}:${port}/${workingTable}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
