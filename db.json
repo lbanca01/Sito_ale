@@ -1,0 +1,37 @@
+{
+  "viaggi": [
+    {
+      "id": 1,
+      "text": "Praga",
+      "foto": "https://photos.app.goo.gl/kwU632qjNdAGFDve9"
+    }
+  ],
+  "ristoranti": [
+    {
+      "id": 1,
+      "title": "Cibo",
+      "desc": "Ciboso",
+      "seen": true
+    },
+    {
+      "text": "a",
+      "foto": "a",
+      "reminder": false,
+      "id": 2
+    }
+  ],
+  "film": [
+    {
+      "id": 1,
+      "title": "Avengers",
+      "genere": "Azione",
+      "seen": true
+    },
+    {
+      "id": 2,
+      "title": "Grease",
+      "genere": "Musical/Romantico",
+      "seen": false
+    }
+  ]
+}
