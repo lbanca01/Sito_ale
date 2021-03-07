@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 var workingTable = "viaggi"
 const url = "http://localhost"
-const port = process.env.PORT || 5000
+const port = 5000
 function App() {
 
   const [showAdd, setShowAdd] = useState(false)
