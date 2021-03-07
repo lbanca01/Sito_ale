@@ -8,8 +8,8 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 var workingTable = "viaggi"
-const url = "http://localhost"
-const port = 5000
+const url = "https://db-sito-ale.herokuapp.com"
+
 function App() {
 
   const [showAdd, setShowAdd] = useState(false)
@@ -30,7 +30,7 @@ function App() {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch(`${url}:${port}/${workingTable}`)
+    const res = await fetch(`${url}/${workingTable}`)
     const data = await res.json()
 
     return data
@@ -38,7 +38,7 @@ function App() {
 
   // Fetch Task
   const fetchTask = async (id) => {
-    const res = await fetch(`${url}:${port}/${workingTable}/${id}`)
+    const res = await fetch(`${url}/${workingTable}/${id}`)
     const data = await res.json()
 
     return data
@@ -46,7 +46,7 @@ function App() {
 
   // Add Task
   const addTask = async (task) => {
-    const res = await fetch(`${url}:${port}/${workingTable}`, {
+    const res = await fetch(`${url}/${workingTable}`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -62,7 +62,7 @@ function App() {
 
   // Delete Task
   const deleteTask = async (id) => {
-    const res = await fetch(`${url}:${port}/${workingTable}/${id}`, {
+    const res = await fetch(`${url}/${workingTable}/${id}`, {
       method: 'DELETE',
     })
     //We should control the response status to decide if we will change the state or not.
@@ -76,7 +76,7 @@ function App() {
     const taskToToggle = await fetchTask(id)
     const updTask = { ...taskToToggle, seen: !taskToToggle.seen }
 
-    const res = await fetch(`${url}:5000/${workingTable}/${id}`, {
+    const res = await fetch(`${url}/${workingTable}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
@@ -99,7 +99,7 @@ function App() {
     const fotoToAdd = await fetchTask(id)
     const upd = { ...fotoToAdd, desc: desc}
 
-    const res = await fetch(`${url}:${port}/${workingTable}/${id}`, {
+    const res = await fetch(`${url}/${workingTable}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
