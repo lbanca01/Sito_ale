@@ -2,7 +2,7 @@ import { FaTimes, FaCommentAlt } from 'react-icons/fa'
 
 const Task = ({ task, onDelete, onAdd, onSeen }) => {
   return (
-    <div className={`task ${task.seen ? 'reminder' : '' }`}>
+    <div className={`task ${task.seen == "1" ? 'reminder' : '' }`}>
       <h3 onDoubleClick={() => onSeen(task.id)}>
         {task.text} 
         <div>

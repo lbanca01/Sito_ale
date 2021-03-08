@@ -28,12 +28,12 @@ const AddTask = ({ onAdd, table }) => {
     <form className='add-form' onSubmit={onSubmit}>
       <div className='form-control'>
         <label>Titolo</label>
-        <input type="text" placeholder="Add task" 
+        <input type="text" placeholder="Titolo" 
         value={text} onChange={(e) => setText(e.target.value)}/>
       </div>
       <div className='form-control'>
         <label>Descrizione</label>
-        <input type="text" placeholder="Add foto" 
+        <input type="text" placeholder="Descrizione" 
         value={desc} onChange={(e) => setDesc(e.target.value)}/>
       </div>
       <div className='form-control form-control-check'>

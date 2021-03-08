@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 var workingTable = "viaggi"
-const url = "https://db-sito-ale.herokuapp.com"
+const url = "https://aledb.netsons.org"
 
 function App() {
 
@@ -30,7 +30,12 @@ function App() {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch(`${url}/${workingTable}`)
+    var a = "${url}/read.php?table=${workingTable}"
+    const res = await fetch(`${url}/read.php?table=${workingTable}`, {
+      method: 'POST'
+    })
+
+
     const data = await res.json()
 
     return data
@@ -38,32 +43,35 @@ function App() {
 
   // Fetch Task
   const fetchTask = async (id) => {
-    const res = await fetch(`${url}/${workingTable}/${id}`)
+    const res = await fetch(`${url}/read.php?table=${workingTable}&id=${id}`)
     const data = await res.json()
 
     return data
   }
 
-  // Add Task
+  // Add Task #TO-DO aggiungi seen
   const addTask = async (task) => {
-    const res = await fetch(`${url}/${workingTable}`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(task),
-    })
+    if (task.seen){
+      await fetch(`${url}/insert.php?table=${workingTable}&text=${task.text}&desc=${task.desc}&seen=${task.seen == "1" ? "1" : "0"}`, {
+        method: 'POST'
+      })
+    }else{
+      await fetch(`${url}/insert.php?table=${workingTable}&text=${task.text}&desc=${task.desc}`, {
+        method: 'POST'
+      })
+    }
+    
 
-    const data = await res.json()
+    // const data = await res.json()
 
-    setTasks([...tasks, data])
-
+    // setTasks([...tasks, data])
+    refresh()
   }
 
   // Delete Task
   const deleteTask = async (id) => {
-    const res = await fetch(`${url}/${workingTable}/${id}`, {
-      method: 'DELETE',
+    const res = await fetch(`${url}/delete.php?table=${workingTable}&id=${id}`, {
+      method: 'POST',
     })
     //We should control the response status to decide if we will change the state or not.
     res.status === 200
@@ -74,46 +82,38 @@ function App() {
   //Toggle Reminder
   const toggleReminder = async (id) => {
     const taskToToggle = await fetchTask(id)
-    const updTask = { ...taskToToggle, seen: !taskToToggle.seen }
 
-    const res = await fetch(`${url}/${workingTable}/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(updTask),
+    await fetch(`${url}/update.php?table=${workingTable}&id=${id}&param=seen&value=${taskToToggle[0].seen == "1" ? "0" : "1"}`, {
+      method: 'POST'
     })
+    // const res = 
+    // const data = await res.json()
+    // 
+    // setTasks(
+    //   tasks.map((task) =>
+    //     task.id === id ? { ...task, seen: data.seen } : task
+    //   )
+    // )
 
-    const data = await res.json()
-
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, seen: data.seen } : task
-      )
-    )
+    refresh()
   }
   
   const addParam = async (id, desc) => {
     if (!desc)
       return
-    const fotoToAdd = await fetchTask(id)
-    const upd = { ...fotoToAdd, desc: desc}
 
-    const res = await fetch(`${url}/${workingTable}/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(upd),
+    await fetch(`${url}/update.php?table=${workingTable}&id=${id}&param=desc&value=${desc}`, {
+      method: 'POST'
     })
 
-    const data = await res.json()
-
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, desc: data.desc } : task
-      )
-    )
+    // const data = await res.json()
+    // 
+    // setTasks(
+    //   tasks.map((task) =>
+    //     task.id === id ? { ...task, desc: data.desc } : task
+    //   )
+    // )
+    refresh()
   }
 
   const setTable = (table) => {
