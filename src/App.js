@@ -122,6 +122,7 @@ function App() {
   
   return (
     <Router>
+      <h1 className='center'>Ricordi da fare</h1>
       <div className='container'>
         <Header
           onAdd={() => setShowAdd(!showAdd)}
