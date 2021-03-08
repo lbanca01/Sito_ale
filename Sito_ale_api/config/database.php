@@ -2,10 +2,10 @@
 class Database{
 
     // specify your own database credentials
-    private $host = "localhost";
-    private $db_name = "ckowstkc_dbale";
-    private $username = "ckowstkc_1";
-    private $password = "ckowstkc_dbale1";
+    private $host = "";
+    private $db_name = "";
+    private $username = "";
+    private $password = "";
     public $conn;
 
     // get the database connection
